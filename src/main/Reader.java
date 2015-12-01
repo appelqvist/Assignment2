@@ -15,6 +15,7 @@ public class Reader extends Thread {
         this.buffer = buffer;
     }
 
+    //Ändring
     public void startReader(String s){
         text = s;
         this.start();
