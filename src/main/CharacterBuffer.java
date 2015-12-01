@@ -6,27 +6,45 @@ package main;
 public class CharacterBuffer {
 
     private char c;
-    private boolean hasValue;
-    private Object lock = new Object();
+    private boolean hasValue = false;
 
-    public void putAsync(char c) {
+
+    public synchronized void putAsync(char c) {
         this.c = c;
         hasValue = true;
     }
 
-    public char getAsync(){
+    public synchronized char getAsync() {
         hasValue = false;
         return c;
     }
 
-    public void putSync(char c){
+
+    public synchronized void putSync(char c) {
+        if (hasValue) {
+            try{
+                wait();
+            }catch (InterruptedException e){
+                System.out.println("Interrupted");
+            }
+        }
         this.c = c;
+        hasValue = true;
+        notify();
     }
 
-    public char getSync(){
+    public synchronized char getSync() {
+        if (!hasValue) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted");
+            }
+        }
+        hasValue = false;
+        notify();
         return c;
     }
-
 
 
 }

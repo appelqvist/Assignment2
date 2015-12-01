@@ -1,6 +1,8 @@
 package main;
 
 
+import org.w3c.dom.css.RGBColor;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -88,7 +90,7 @@ public class GUIMutex
 		pnlTest.setBounds(220, 45, 155, 342);
 		pnlTest.setLayout(null);
 		frame.add(pnlTest);
-		lblTrans = new JLabel("Transmitted string goes here");	// Replace with sent string
+		lblTrans = new JLabel("");	// Replace with sent string
 		lblTrans.setBounds(13, 415, 200, 13);
 		frame.add(lblTrans);
 		lblRec = new JLabel("Received string goes here");		// Replace with received string
@@ -153,9 +155,13 @@ public class GUIMutex
 			if(e.getSource() == btnRun){
 				controller.startTransfer(getTransTxt());
 				btnClear.setEnabled(true);
+				btnRun.setEnabled(false);
 			}
 			else if(e.getSource() == btnClear){
 				clearGUI();
+				controller.controllerClear();
+				btnRun.setEnabled(true);
+				btnClear.setEnabled(false);
 			}
 		}
 	}
@@ -165,6 +171,16 @@ public class GUIMutex
 		listR.setText("");
 		lblTrans.setText("");
 		lblRec.setText("");
+	}
+
+	public void setDifference(boolean same){
+		if(same){
+			pnlRes.setBackground(Color.GREEN);
+			lblStatus.setText("Yey, still same");
+		}else{
+			pnlRes.setBackground(Color.RED);
+			lblStatus.setText("Nope, not same");
+		}
 	}
 
 	public void printWriterLog(String s){

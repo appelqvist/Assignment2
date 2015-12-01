@@ -7,34 +7,46 @@ public class Reader extends Thread {
 
     private CharacterBuffer buffer;
     private Controller controller;
-
-    private String text;
+    private boolean running = false;
 
     public Reader(Controller controller, CharacterBuffer buffer){
         this.controller = controller;
         this.buffer = buffer;
     }
 
-    //Ändring
-    public void startReader(String s){
-        text = s;
+    public void stopReader(){
+        running = false;
+    }
+
+    public void startReader(){
+        running = true;
         this.start();
     }
+
 
     @Override
     public void run() {
         super.run();
 
         char c;
-
-        while(true){
-            //hämtar från buffer och loggar.
-
+        while(running){
             if(controller.isSyncMode()){
                 c = buffer.getSync();
-
+                controller.printReaderLog("Sync: "+c);
             }else{
                 c = buffer.getAsync();
+                controller.printReaderLog("ASync: "+c);
+            }
+
+            controller.addToRecived(c);
+            controller.sendRecived();
+            controller.checkDifference();
+
+            try{
+                sleep(70);
+            }catch (Exception e){
+                e.printStackTrace();
+                break;
             }
         }
 

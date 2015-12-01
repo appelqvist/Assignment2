@@ -39,10 +39,12 @@ public class Writer extends Thread {
             count++;
 
             try {
-                sleep(1000);
+                sleep(70);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+        controller.stopProcess();
     }
 }
