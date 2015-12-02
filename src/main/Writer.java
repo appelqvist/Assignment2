@@ -8,6 +8,7 @@ public class Writer extends Thread {
     private Controller controller;
     private CharacterBuffer buffer;
     private String s;
+    private boolean running = false;
 
     /**
      * Konstruktor
@@ -25,7 +26,15 @@ public class Writer extends Thread {
      */
     public void startWithString(String s) {
         this.s = s;
+        running = true;
         this.start();
+    }
+
+    /**
+     * Stoppar writer
+     */
+    public void stopWriter(){
+        running = false;
     }
 
     /**
@@ -37,7 +46,7 @@ public class Writer extends Thread {
         int count = 0;
         char c;
 
-        while (count < s.length()) { //Så länge de finns bokstäver kvar
+        while (count < s.length() && running) { //Så länge de finns bokstäver kvar
             c = s.charAt(count);
 
             if (controller.isSyncMode()) {

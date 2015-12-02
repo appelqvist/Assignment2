@@ -64,6 +64,7 @@ public class Controller {
      */
     public void stopProcess(){
         reader.stopReader();
+        writer.stop();
     }
 
     /**
