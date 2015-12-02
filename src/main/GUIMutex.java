@@ -140,15 +140,25 @@ public class GUIMutex
 		addListeners();
 	}
 
+	/**
+	 * Lägger till buttonlisteners
+	 */
 	public void addListeners(){
 		btnRun.addActionListener(new ClickListener());
 		btnClear.addActionListener(new ClickListener());
 	}
 
+	/**
+	 * Set controller
+	 * @param controller
+	 */
 	public void setController(Controller controller) {
 		this.controller = controller;
 	}
 
+	/**
+	 * ButtonListener
+	 */
 	private class ClickListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -166,6 +176,9 @@ public class GUIMutex
 		}
 	}
 
+	/**
+	 * Återställer GUI
+	 */
 	public void clearGUI(){
 		listW.setText("");
 		listR.setText("");
@@ -183,18 +196,34 @@ public class GUIMutex
 		}
 	}
 
+	/**
+	 * Print i writerlog
+	 * @param s
+	 */
 	public void printWriterLog(String s){
 		listW.append(s+"\n");
 	}
 
+	/**
+	 * Print i readerlog
+	 * @param s
+	 */
 	public void printReaderLog(String s){
 		listR.append(s+"\n");
 	}
 
+	/**
+	 * Sätter sträng som transmittedstring
+	 * @param s
+	 */
 	public void setTransmittedString(String s){
 		lblTrans.setText(s);
 	}
 
+	/**
+	 * Sätter sträng som RecrivedStirng
+	 * @param s
+	 */
 	public void setRecivedString(String s){
 		lblRec.setText(s);
 	}

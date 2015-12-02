@@ -3,7 +3,7 @@ package main;
 import java.util.LinkedList;
 
 /**
- * Created by andreasappelqvist on 2015-11-29.
+ * Created by Andréas Appelqvist on 2015-11-29.
  */
 public class Controller {
     private Reader reader;
@@ -13,6 +13,10 @@ public class Controller {
     private LinkedList recivedString = new LinkedList();
     private String transferdString;
 
+    /**
+     * Konstruktor
+     * @param gui
+     */
     public Controller(GUIMutex gui){
         this.gui = gui;
         gui.setController(this);
@@ -21,6 +25,9 @@ public class Controller {
         this.writer = new Writer(this, buffer);
     }
 
+    /**
+     * Återställer variabler och trådar i controllerklassen.
+     */
     public void controllerClear(){
         stopProcess();
 
@@ -31,26 +38,45 @@ public class Controller {
         transferdString = "";
     }
 
+    /**
+     * Kontrollerar om in-string och out-string är lika
+     * Sedan kallar den på gui med resultatet för utskrivning
+     */
     public void checkDifference(){
         String rec = "";
+        String temp = "";
         for(int i = 0; i < recivedString.size(); i++){
             rec += recivedString.get(i);
         }
-        if(transferdString.equals(rec)){
+
+        temp = transferdString.substring(0,rec.length());
+
+        if(temp.equals(rec)){
             gui.setDifference(true);
         }else{
             gui.setDifference(false);
         }
     }
 
+    /**
+     * String är slut.
+     * Stoppar processen
+     */
     public void stopProcess(){
         reader.stopReader();
     }
 
+    /**
+     * Lägger till en char i det mottagna meddelandet.
+     * @param c
+     */
     public void addToRecived(char c){
         recivedString.addLast(c);
     }
 
+    /**
+     * Skickar mottagen string till gui för utskrift.
+     */
     public void sendRecived(){
         String s  = "";
         for(int i = 0; i < recivedString.size(); i++){
@@ -59,18 +85,34 @@ public class Controller {
         gui.setRecivedString(s);
     }
 
+    /**
+     * Skickar sträng till gui för att skrivas i log
+     * @param s
+     */
     public void printWriterLog(String s){
         gui.printWriterLog(s);
     }
 
+    /**
+     * Skickar sträng till gui för att skrivas i log
+     * @param s
+     */
     public void printReaderLog(String s){
         gui.printReaderLog(s);
     }
 
+    /**
+     * Frågar vilket mode som är aktiverat
+     * @return
+     */
     public boolean isSyncMode(){
         return gui.modeSelected();
     }
 
+    /**
+     * Startar transfereringen av string
+     * @param s
+     */
     public void startTransfer(String s) {
         transferdString = s;
         writer.startWithString(s);

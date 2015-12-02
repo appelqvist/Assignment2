@@ -1,7 +1,7 @@
 package main;
 
 /**
- * Created by andreasappelqvist on 2015-11-29.
+ * Created by Andréas Appelqvist on 2015-11-29.
  */
 public class CharacterBuffer {
 
@@ -9,17 +9,29 @@ public class CharacterBuffer {
     private boolean hasValue = false;
 
 
+    /**
+     * Lägger char i buffer
+     * @param c
+     */
     public synchronized void putAsync(char c) {
         this.c = c;
         hasValue = true;
     }
 
+    /**
+     * Hämtar char från buffer
+     * @return
+     */
     public synchronized char getAsync() {
         hasValue = false;
         return c;
     }
 
 
+    /**
+     * Lägger en char i buffer sync
+     * @param c
+     */
     public synchronized void putSync(char c) {
         if (hasValue) {
             try{
@@ -33,6 +45,10 @@ public class CharacterBuffer {
         notify();
     }
 
+    /**
+     * Hämtar en char från buffer sync
+     * @return
+     */
     public synchronized char getSync() {
         if (!hasValue) {
             try {

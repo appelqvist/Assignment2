@@ -1,7 +1,7 @@
 package main;
 
 /**
- * Created by andreasappelqvist on 2015-11-29.
+ * Created by Andréas Appelqvist on 2015-11-29.
  */
 public class Reader extends Thread {
 
@@ -9,21 +9,33 @@ public class Reader extends Thread {
     private Controller controller;
     private boolean running = false;
 
+    /**
+     * Konstruktor
+     */
     public Reader(Controller controller, CharacterBuffer buffer){
         this.controller = controller;
         this.buffer = buffer;
     }
 
+    /**
+     * Stoppar Thread
+     */
     public void stopReader(){
         running = false;
     }
 
+    /**
+     * Startar Thread
+     */
     public void startReader(){
         running = true;
         this.start();
     }
 
 
+    /**
+     * Thread
+     */
     @Override
     public void run() {
         super.run();
@@ -43,7 +55,8 @@ public class Reader extends Thread {
             controller.checkDifference();
 
             try{
-                sleep(70);
+                int rand =  (int) (Math.random()*1000);
+                sleep(rand);
             }catch (Exception e){
                 e.printStackTrace();
                 break;
