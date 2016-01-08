@@ -52,7 +52,7 @@ public class GUIMutex
 		initializeGUI();					// Fill in components
 		frame.setVisible(true);
 		frame.setResizable(false);			// Prevent user from change size
-		frame.setLocationRelativeTo(null);	// Start middle screen
+		frame.setLocationRelativeTo(null);	// Main middle screen
 	}
 	
 	/**
