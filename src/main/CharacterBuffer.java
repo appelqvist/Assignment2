@@ -8,7 +8,6 @@ public class CharacterBuffer {
     private char c;
     private boolean hasValue = false;
 
-
     /**
      * Lägger char i buffer
      * @param c
@@ -26,7 +25,6 @@ public class CharacterBuffer {
         hasValue = false;
         return c;
     }
-
 
     /**
      * Lägger en char i buffer sync
@@ -50,6 +48,7 @@ public class CharacterBuffer {
      * @return
      */
     public synchronized char getSync() {
+        char temp;
         if (!hasValue) {
             try {
                 wait();
@@ -58,8 +57,9 @@ public class CharacterBuffer {
             }
         }
         hasValue = false;
+        temp = c;
         notify();
-        return c;
+        return temp;
     }
 
 
