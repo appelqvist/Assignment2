@@ -24,6 +24,7 @@ public class Controller {
         CharacterBuffer buffer = new CharacterBuffer();
         this.reader = new Reader(this, buffer);
         this.writer = new Writer(this, buffer);
+        System.out.println();
     }
 
     /**
